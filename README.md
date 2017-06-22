@@ -1,4 +1,4 @@
 A CRUD RESTful web service using Spring 4 specifically Spring Boot, Spring Data and Spring MVC.
-It also uses Spring Test for integration testing.
+It also uses Spring Test and embedded H2 database for integration testing.
 
-Note this project is currently under construction...
+This project is currently under construction...
