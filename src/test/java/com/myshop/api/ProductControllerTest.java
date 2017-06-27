@@ -19,8 +19,8 @@ import com.myshop.domain.Product;
 public class ProductControllerTest 
 {
 	@Autowired
-    private TestRestTemplate restTemplate;
-	
+	private TestRestTemplate restTemplate;
+
 	@Test
 	public void shouldAddNewProduct() {
 		Product p = new Product("iphone 7", "apple", 20.0f);
@@ -30,12 +30,12 @@ public class ProductControllerTest
 		// Successful HTTP response: 201, “Created”
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 		System.out.println("Location: " + response.getHeaders().getLocation());
-    }
-	
+	}
+
 	@Test
 	public void shouldGetExistingProduct() {
 		ResponseEntity<String> response =
-				this.restTemplate.getForEntity("/products/1", String.class);
+			this.restTemplate.getForEntity("/products/1", String.class);
 		// Successful HTTP response: 200, “OK”
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		System.out.println("Response body: " + response.getBody());
@@ -44,7 +44,7 @@ public class ProductControllerTest
 	@Test
 	public void shouldGetAllExistingProducts() {
 		ResponseEntity<String> response =
-				this.restTemplate.getForEntity("/products", String.class);
+			this.restTemplate.getForEntity("/products", String.class);
 		// Successful HTTP response: 200, “OK”
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		System.out.println("Response body: " + response.getBody());
@@ -67,7 +67,7 @@ public class ProductControllerTest
 	public void shouldDeleteExistingProduct() {
 		this.restTemplate.delete("/products/2");
 		ResponseEntity<String> response =
-				this.restTemplate.getForEntity("/products/2", String.class);
+			this.restTemplate.getForEntity("/products/2", String.class);
 		// Error HTTP response: 404, “Not Found”
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}

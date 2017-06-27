@@ -34,24 +34,23 @@ public class ProductController
 	}
 
 	@RequestMapping(method=RequestMethod.POST,
-					consumes={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+			consumes={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Product> addProduct(@RequestBody Product p, UriComponentsBuilder ucb) {
 		Product saved = repo.save(p);
-	    
-	    HttpHeaders headers = new HttpHeaders();
-	    URI locationUri = ucb.path("/products/")
-	        .path(String.valueOf(saved.getId()))
-	        .build()
-	        .toUri();
-	    headers.setLocation(locationUri);
-	    
-	    ResponseEntity<Product> responseEntity = new ResponseEntity<Product>(headers, HttpStatus.CREATED);
-	    return responseEntity;
+
+		HttpHeaders headers = new HttpHeaders();
+		URI locationUri = ucb.path("/products/")
+							.path(String.valueOf(saved.getId()))
+							.build().toUri();
+		headers.setLocation(locationUri);
+
+		ResponseEntity<Product> responseEntity = new ResponseEntity<Product>(headers, HttpStatus.CREATED);
+		return responseEntity;
 	}
 
 	@RequestMapping(value="{id}", method=RequestMethod.GET,
-					produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+			produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public Product getProduct(@PathVariable Long id) {
 		Product p = repo.findOne(id);
 		if (p == null) {
@@ -61,7 +60,7 @@ public class ProductController
 	}
 
 	@RequestMapping(method=RequestMethod.GET,
-					produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+			produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public List<Product> getProducts() {
 		List<Product> list = repo.findAll();
 		if (list == null || list.size() == 0) {
@@ -69,9 +68,9 @@ public class ProductController
 		}
 		return list;
 	}
-	  
+  
 	@RequestMapping(value="{id}", method=RequestMethod.PUT,
-					consumes={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+			consumes={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public void updateProduct(@PathVariable Long id, @RequestBody Product p) {
 		if (id != p.getId()) {
 			throw new BadRequestException();
