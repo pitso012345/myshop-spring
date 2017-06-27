@@ -2,10 +2,8 @@ package com.myshop.api;
 
 import static org.junit.Assert.*;
 
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -18,8 +16,6 @@ import com.myshop.domain.Product;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
-//add test data from script @Sql
-//@FixMethodOrder
 public class ProductControllerTest 
 {
 	@Autowired
@@ -46,6 +42,15 @@ public class ProductControllerTest
 	}
 
 	@Test
+	public void shouldGetAllExistingProducts() {
+		ResponseEntity<String> response =
+				this.restTemplate.getForEntity("/products", String.class);
+		// Successful HTTP response: 200, “OK”
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+		System.out.println("Response body: " + response.getBody());
+	}
+
+	@Test
 	public void shouldUpdateExistingProduct() {
 		Product p = this.restTemplate.getForObject("/products/1", Product.class);
 		//update product details
@@ -60,9 +65,9 @@ public class ProductControllerTest
 
 	@Test
 	public void shouldDeleteExistingProduct() {
-		this.restTemplate.delete("/products/1");
+		this.restTemplate.delete("/products/2");
 		ResponseEntity<String> response =
-				this.restTemplate.getForEntity("/products/1", String.class);
+				this.restTemplate.getForEntity("/products/2", String.class);
 		// Error HTTP response: 404, “Not Found”
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}
