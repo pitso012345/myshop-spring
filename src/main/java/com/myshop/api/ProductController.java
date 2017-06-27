@@ -41,8 +41,8 @@ public class ProductController
 
 		HttpHeaders headers = new HttpHeaders();
 		URI locationUri = ucb.path("/products/")
-							.path(String.valueOf(saved.getId()))
-							.build().toUri();
+				.path(String.valueOf(saved.getId()))
+				.build().toUri();
 		headers.setLocation(locationUri);
 
 		ResponseEntity<Product> responseEntity = new ResponseEntity<Product>(headers, HttpStatus.CREATED);
