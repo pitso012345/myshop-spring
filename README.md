@@ -23,10 +23,8 @@ After only a few seconds, the application should start up and be ready to go.
 You can test it from the command line with [curl](https://curl.haxx.se).
 
 To post a JSON data:
-```
-$ curl -i -H "Content-Type: application/json" -d '{"id":null,"name":"iphone 7","description":"apple","price":20.0,"version":1}' http://localhost:8080/products
-```
-`$ curl -i -H "Content-Type: application/json" -d "{\"id\":null,\"name\":\"iphone 7\",\"description\":\"apple\",\"price\":20.0,\"version\":1}" http://localhost:8080/products`
 
-Then get the posted data:
+`$ curl -i -H "Content-Type: application/json" -d '{"id":null,"name":"iphone 7","description":"apple","price":20.0,"version":1}' http://localhost:8080/products`
+
+Then get it:
 `$ curl -i -H "Accept: application/json" http://localhost:8080/products/1`
