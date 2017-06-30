@@ -13,9 +13,8 @@ Build the executable JAR file like this:
 
 After running the Maven build, you'll find the artifact in the target folder.
 Now you can run it from the command line:
-```
-$ java -jar target/myshop-spring-0.0.1-SNAPSHOT.jar
-```
+
+`$ java -jar target/myshop-spring-0.0.1-SNAPSHOT.jar`
 
 After only a few seconds, the application should start up and be ready to go.
 
@@ -24,11 +23,10 @@ After only a few seconds, the application should start up and be ready to go.
 You can test it from the command line with [curl](https://curl.haxx.se).
 
 To post a JSON data:
-(Linux)
-> curl -i -H "Content-Type: application/json" -d '{"id":null,"name":"iphone 7","description":"apple","price":20.0,"version":1}' http://localhost:8080/products
-
-(Windows)
-> curl -i -H "Content-Type: application/json" -d "{\"id\":null,\"name\":\"iphone 7\",\"description\":\"apple\",\"price\":20.0,\"version\":1}" http://localhost:8080/products
+```
+$ curl -i -H "Content-Type: application/json" -d '{"id":null,"name":"iphone 7","description":"apple","price":20.0,"version":1}' http://localhost:8080/products
+```
+`$ curl -i -H "Content-Type: application/json" -d "{\"id\":null,\"name\":\"iphone 7\",\"description\":\"apple\",\"price\":20.0,\"version\":1}" http://localhost:8080/products`
 
 Then get the posted data:
-> curl -i -H "Accept: application/json" http://localhost:8080/products/1
+`$ curl -i -H "Accept: application/json" http://localhost:8080/products/1`
