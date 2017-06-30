@@ -8,6 +8,7 @@ It also uses Spring Test for integration testing.
 Although it is possible to package this service as a traditional WAR file for deployment to an external application server, the simpler approach demonstrated below creates a standalone application. You package everything in a single, executable JAR file by embedding the Tomcat servlet container as the HTTP runtime, instead of deploying to an external instance. I also use embedded H2 database instead of an external database.
 
 Build the executable JAR file like this:
+
 `$ mvn package`
 
 After running the Maven build, you'll find the artifact in the target folder.
