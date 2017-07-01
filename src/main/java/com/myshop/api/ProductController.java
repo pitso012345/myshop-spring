@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.myshop.domain.Product;
+import com.myshop.domain.Products;
 import com.myshop.repository.ProductRepository;
 
 @RestController
@@ -59,8 +60,7 @@ public class ProductController
 		return p;
 	}
 
-	@RequestMapping(method=RequestMethod.GET,
-			produces={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(method=RequestMethod.GET, produces={MediaType.APPLICATION_JSON_VALUE})
 	public List<Product> getProducts() {
 		List<Product> list = repo.findAll();
 		if (list == null || list.size() == 0) {
@@ -69,6 +69,12 @@ public class ProductController
 		return list;
 	}
   
+	@RequestMapping(method=RequestMethod.GET, produces={MediaType.APPLICATION_XML_VALUE})
+	public Products getProductsXml() {
+		List<Product> list = getProducts();
+		return (list == null) ? null : new Products(list);
+	}
+
 	@RequestMapping(value="{id}", method=RequestMethod.PUT,
 			consumes={MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public void updateProduct(@PathVariable Long id, @RequestBody Product p) {
