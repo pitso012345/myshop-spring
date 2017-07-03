@@ -24,4 +24,5 @@ public class Products
 	public List<Product> getList() { return list; }
 
 	public void setList(List<Product> list) { this.list = list; }
+	
 }
