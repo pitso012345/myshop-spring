@@ -24,6 +24,10 @@ import com.myshop.domain.Product;
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
 public class ProductControllerTest 
 {
+	private static final String PRODUCTS_URL   = "/products";
+	private static final String PRODUCTS_1_URL = "/products/1";
+	private static final String PRODUCTS_2_URL = "/products/2";
+	
 	@Autowired
 	private TestRestTemplate restTemplate;
 
@@ -32,7 +36,7 @@ public class ProductControllerTest
 		Product p = new Product("iphone 7", "apple", 20.0f);
 
 		ResponseEntity<Product> response =
-			this.restTemplate.postForEntity("/products", p, Product.class);
+			this.restTemplate.postForEntity(PRODUCTS_URL, p, Product.class);
 		
 		// Successful HTTP response: 201, “Created”
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -42,7 +46,7 @@ public class ProductControllerTest
 	@Test
 	public void shouldGetExistingProduct() {
 		ResponseEntity<String> response =
-			this.restTemplate.getForEntity("/products/1", String.class);
+			this.restTemplate.getForEntity(PRODUCTS_1_URL, String.class);
 		
 		// Successful HTTP response: 200, “OK”
 		assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -52,7 +56,7 @@ public class ProductControllerTest
 	@Test
 	public void shouldGetAllExistingProducts() {
 		ResponseEntity<String> response =
-			this.restTemplate.getForEntity("/products", String.class);
+			this.restTemplate.getForEntity(PRODUCTS_URL, String.class);
 		
 		// Successful HTTP response: 200, “OK”
 		assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -68,7 +72,7 @@ public class ProductControllerTest
 		
 		HttpEntity<Product> entity = new HttpEntity<Product>(headers);
 		ResponseEntity<Product> response =
-			this.restTemplate.exchange("/products/1", HttpMethod.GET, entity, Product.class);
+			this.restTemplate.exchange(PRODUCTS_1_URL, HttpMethod.GET, entity, Product.class);
 
 		//update product details
 		Product p = response.getBody();
@@ -77,20 +81,20 @@ public class ProductControllerTest
 		p.setPrice(10.0f);
 		
 		entity = new HttpEntity<Product>(p, headers);
-		this.restTemplate.exchange("/products/1", HttpMethod.PUT, entity, Product.class);
+		this.restTemplate.exchange(PRODUCTS_1_URL, HttpMethod.PUT, entity, Product.class);
 
 		entity = new HttpEntity<Product>(headers);
 		ResponseEntity<String> responseString =
-			this.restTemplate.exchange("/products/1", HttpMethod.GET, entity, String.class);
+			this.restTemplate.exchange(PRODUCTS_1_URL, HttpMethod.GET, entity, String.class);
 
 		System.out.println("Response body: " + responseString.getBody());
 	}
 
 	@Test
 	public void shouldDeleteExistingProduct() {
-		this.restTemplate.delete("/products/2");
+		this.restTemplate.delete(PRODUCTS_2_URL);
 		ResponseEntity<String> response =
-			this.restTemplate.getForEntity("/products/2", String.class);
+			this.restTemplate.getForEntity(PRODUCTS_2_URL, String.class);
 		// Error HTTP response: 404, “Not Found”
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 	}
